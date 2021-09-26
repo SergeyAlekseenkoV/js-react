@@ -1,70 +1,50 @@
 "use strict";
-/* ============== dynamic typization ==============*/
-
-// To String
-
-/* 1) */
-
-// console.log(typeof(String(null)));
-// console.log(typeof(String(4)));
-
-// // 2) //
-
-// console.log(typeof(null + ''));
-
-const num = 5;
-
-console.log("https://vk.com/catalog/" + num);
-
-const fontSize = 26 + 'px';
-
-// To number
-
+/* ============== tasks from interviews ==============*/
 // 1)
-
-console.log(typeof(Number("4")));
-console.log(Number('4'));
+let x = 5;
+alert(x++);// 5
+console.log(x);// 6
 
 // 2)
-
-console.log(typeof(+'5'));
-
-// 3)
-
-console.log(typeof(parseInt("15", 10)));
-
-// let answer = +prompt("Hi there!", "");
-
-// To boolean
-
-// false all the time ====== F ++ A ++ L ++ S ++ E ===== //
-
-// 0, '', null, undefined, NaN;
-
-// 1)
-
-let switcher = null;
-
-if(switcher) {
-    console.log('Running...');
-}
-
-switcher = 1;
-if(switcher) {
-    console.log('Running...');
-}
-
-// 2)
-
-console.log(typeof(Boolean('4')));
+let str = [] + false - null + true;
+console.log(str); // NaN
 
 // 3)
+let y = 1;
+let X = y = 2;
+alert(X); // 2
 
-console.log(typeof(!!"44444"));
+// 4)
 
+console.log([] + 1 + 2); // "12"
 
+// 5)
 
+alert("1"[0]); // first(0) element of a string - "1"
 
+// 6)
+
+console.log(2 && 1 && null && 0 && undefined); // && breaks on false(null here) - null
+
+// 7) Is here a difference?
+// !!(a && b) and (a && b)?
+
+console.log(!!(1 && 3) === (1 && 3)); // false
+
+// 8) What will be the output here?
+alert(null || 2 && 3 || 4); // 3
+
+// 9) A = B ? // no, false
+
+var A = [1, 2, 3];
+var B = [1, 2, 3];
+
+// 10)
+alert(+"Infinity"); // Infinity
+
+// 11) is it true - "Ежик" > "Яблоко" ... // false
+
+console.log("Ежик" < "Яблоко");
 
 
 
