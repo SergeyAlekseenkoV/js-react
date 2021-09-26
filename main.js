@@ -1,119 +1,68 @@
 "use strict";
-/* ==============  OOP basis ==============*/
-// let str = "some";
-// let strObj = new String(str);
+/* ============== dynamic typization ==============*/
 
-// console.log(typeof(str));
-// console.log(typeof(strObj));
+// To String
 
-// console.dir([1,2,3,4]);
+/* 1) */
 
-// === old method with __proto__ === //
+// console.log(typeof(String(null)));
+// console.log(typeof(String(4)));
 
-const soldier = {
-    health: 400,
-    armor: 100,
-    sayCommand: function() {
-        console.log("Run!");
-    }
-};
+// // 2) //
 
-// const john = {
-//     health: 100
-// };
+// console.log(typeof(null + ''));
 
-// john.__proto__ = soldier;
-// console.log(john.armor);
+const num = 5;
+
+console.log("https://vk.com/catalog/" + num);
+
+const fontSize = 26 + 'px';
+
+// To number
+
+// 1)
+
+console.log(typeof(Number("4")));
+console.log(Number('4'));
+
+// 2)
+
+console.log(typeof(+'5'));
+
+// 3)
+
+console.log(typeof(parseInt("15", 10)));
+
+// let answer = +prompt("Hi there!", "");
+
+// To boolean
+
+// false all the time ====== F ++ A ++ L ++ S ++ E ===== //
+
+// 0, '', null, undefined, NaN;
+
+// 1)
+
+let switcher = null;
+
+if(switcher) {
+    console.log('Running...');
+}
+
+switcher = 1;
+if(switcher) {
+    console.log('Running...');
+}
+
+// 2)
+
+console.log(typeof(Boolean('4')));
+
+// 3)
+
+console.log(typeof(!!"44444"));
 
 
-// =============== modern method =============== //
-
-const john = Object.create(soldier);
-
-// the same as john.__proto__ = soldier;
-Object.setPrototypeOf(john, soldier);
-john.sayCommand();
-
-// ============ practice ============ //
-
-const personalMovieDB = {
-    count: 0,
-    movies: {},
-    actors: {},
-    genres: [],
-    privat: false,
-    start: function() {
-        personalMovieDB.count = +prompt("How many films have you seen?","");
-    
-        while (personalMovieDB.count == "" || personalMovieDB.count == null || isNaN(personalMovieDB.count)) {
-            personalMovieDB.count = +prompt("How many films have you seen?","");
-        }
-    },
-    myFilms: function() {
-        for(let i = 0; i < 2; i++) {
-            var  a = prompt("Tell us one of the last films",""),
-                 b = prompt("How are you evaluating it?","");
-    
-            if(a != null && b != null && a !='' && b != '' && a.length < 50) {
-                personalMovieDB.movies[a] = b;
-                console.log('done');
-            } else {
-                console.log('error');
-                i--;
-            }
-        }
-    },
-    personalLevel: function() {
-        if (personalMovieDB.count < 10) {
-            console.log("You have seen such little amount");
-        } else if (personalMovieDB.count >= 10 && personalMovieDB < 30) {
-            console.log("You are the common watcher");
-        } else if (personalMovieDB.count >= 30) {
-            console.log("You are the big fun of films");
-        } else {
-            console.log("An error occured!");
-        }
-    },
-    showMyDB: function(hidden) {
-        if(!hidden) {
-            console.log(personalMovieDB);
-        }
-    },
-    toggleVisibleMyDB: function() {
-        if(personalMovieDB.privat) {
-            personalMovieDB.privat = false;
-        } else {
-            personalMovieDB.privat = true;
-        }
-    },
-    writeGenres: function() {
-        for(let i = 1; i <= 1; i++) {
-            // let genre = prompt(`Your favourit genre is ${i}`);
-            // personalMovieDB.genres[i - 1] = genre;
-
-            // if(genre === "" || genre == null) {
-            //     console.log("Entred data is incorrect!");
-            //     i--;
-            // } else {
-            //     personalMovieDB.genres[i - 1] = genre;
-            // }
-
-            let genre = prompt(`Enter your favouri genres through commas`);
-            if(genre === "" || genre == null) {
-                    console.log("Entred data is incorrect!");
-                    i--;
-            } else {
-                    personalMovieDB.genres = genre.split(', ');
-                    personalMovieDB.genres.sort();
-            }
-
-        }
-
-        personalMovieDB.genres.forEach((item, i) => {
-            console.log(`Favourit genre ${i + 1} is ${item}`);
-        });
-    }
-};
 
 
 
