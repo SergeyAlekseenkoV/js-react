@@ -1,58 +1,50 @@
-/* Задания на урок:
+"use strict";
 
-1) Удалить все рекламные блоки со страницы (правая часть сайта)
+// ======= events ======= //
 
-2) Изменить жанр фильма, поменять "комедия" на "драма"
+const btns = document.querySelectorAll('button'),
+      overlay = document.querySelector('.overlay');
 
-3) Изменить задний фон постера с фильмом на изображение "bg.jpg". Оно лежит в папке img.
-Реализовать только при помощи JS
+// btn.onclick = function() {
+//     alert('Click!');
+// };
 
-4) Список фильмов на странице сформировать на основании данных из этого JS файла.
-Отсортировать их по алфавиту 
+// btns[0].addEventListener('click', function(e) {
+//     console.log("Text ho!");
+// });
 
-5) Добавить нумерацию выведенных фильмов */
-
-'use strict';
-
-const movieDB = {
-    movies: [
-        "Логан",
-        "Лига справедливости",
-        "Ла-ла лэнд",
-        "Одержимость",
-        "Скотт Пилигрим против..."
-    ]
+// btns[1].addEventListener('mouseover',(e) => {
+//     console.log("Ho-ho!");
+// });
+// let i = 0;
+const deleteElement = (e) => {
+    console.log(e.target);
+    console.log(e.type);
+    // i++;
+    // if(i == 1) {
+    //     btns[2].removeEventListener('click', deleteElement);
+    // }
 };
 
-let adv = document.querySelectorAll(".promo__adv img"),
-    poster = document.querySelector(".promo__bg"),
-    genre = poster.querySelector(".promo__genre"),
-    movieList = document.querySelector('.promo__interactive-list');
+// btns[2].addEventListener('mouseup',(e) => {
+//     console.log("Ho-ho-ho!");
+//     console.log(e.target);
+// });
 
+// btns[2].addEventListener('click', deleteElement);
+overlay.addEventListener('click', deleteElement);
+// btns[2].removeEventListener('click',deleteElement);
 
-// remove advertisment   
-adv.forEach(item => {
-    item.remove();
-});
-// replace content
-genre.textContent = "драма";
-// changing bg
-poster.style.backgroundImage = "url('img/bg.jpg')";
-// clear the static data from html layout
-movieList.innerHTML = "";
-console.log(poster.innerHTML);
-// ==== sort elements ==== //
-movieDB.movies.sort();
-// go through them 
-movieDB.movies.forEach(function(film, i){
-    movieList.innerHTML +=  `
-        <li class="promo__interactive-item">${i + 1}&nbsp;${film}
-            <div class="delete"></div>
-        </li>
-    `;
+// === adding event to all the buttons === //
+
+btns.forEach(btn => {
+    btn.addEventListener('click',deleteElement,{once: true});
 });
 
+const link = document.querySelector('a');
 
+link.addEventListener('click', function(event) {
+    event.preventDefault();
 
-
-
+    console.log(event.target);
+});
