@@ -1,39 +1,61 @@
-window.addEventListener('DOMContentLoaded', () => {
-    const tabs = document.querySelectorAll('.tabheader__item'),
-          tabsContent = document.querySelectorAll('.tabcontent'),
-          tabsParent = document.querySelector('.tabheader__items');
-    // hide all unnecessery tabs
-    function hideTabContent() {
-        tabsContent.forEach(tab => {
-            tab.classList.add('hide');
-            tab.classList.remove('show','fade');
-        });
+// =========== managing the time of scripts executing ========== //
+// setTimeout() and setInterval
+const btn = document.querySelector('.btn');
+// const timerId = setTimeout(function(text) {
+//     console.log(text);
+// }, 2000, "Hi there man!");
 
-        //while we hide - remove active class from it
-        tabs.forEach(tab => {
-            tab.classList.remove('tabheader__item_active');
-        });
-    }
-    // show the tabs
-    function showTabContent(i = 0) {
-        tabsContent[i].classList.add('show', 'fade');
-        tabsContent[i].classList.remove('hide');
-        tabs[i].classList.add('tabheader__item_active');
-    }
+let timerN,
+    i = 0;
+
+
+function myAnime() {
+    const element = document.querySelector('.box');
+    let position = 0;
+
+    // ===> start interval
+    const id = setInterval(frame, 20);
     
-    hideTabContent();
-    showTabContent();
-    // using event delegation on click for right menu
-    tabsParent.addEventListener('click', (e) => {
-        const target = e.target;
-        
-        if(target && target.classList.contains('tabheader__item')) {
-            tabs.forEach((tab, i) => {
-                if(target == tab) {
-                    hideTabContent();
-                    showTabContent(i);
-                }
-            });
+    // each movement
+    function frame() {
+        if(position == 300) {
+            clearInterval(id);
+        } else if(position == 150) {
+            position++;
+            element.style.bottom = position*0 +'px';
+            element.style.right = position*0 +'px';
+        } else { // if our animation haven't stopped
+            position++;
+            element.style.top = position + 'px';
+            element.style.left = position + 'px';
         }
-    });
+    }
+}// we need to start interval up above the frame function ===>
+
+// assign the trigger of the animation
+btn.addEventListener('click', myAnime);
+
+// stop executing the timer
+/* clearInterval(timerId);
+
+const Timer = setTimeout(logger, 1000);
+
+function logger() {
+    if (i === 3) {
+        clearInterval(timerN);
+    } else {
+        clearInterval();
+    }
+
+    console.log('TEXT');
+    i++;
+}
+
+btn.addEventListener('click', () => {
+    timerN = setInterval(logger, 500);
 });
+
+let id = setTimeout(function log(){
+    console.log('hey man!');
+    id = setTimeout(log, 500);
+}, 500); */
