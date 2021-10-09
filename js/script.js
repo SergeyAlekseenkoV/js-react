@@ -1,36 +1,100 @@
-"use strict";
+window.addEventListener('DOMContentLoaded', () => {
+    const tabs = document.querySelectorAll('.tabheader__item'),
+          tabsContent = document.querySelectorAll('.tabcontent'),
+          tabsParent = document.querySelector('.tabheader__items');
+    // hide all unnecessery tabs
+    function hideTabContent() {
+        tabsContent.forEach(tab => {
+            tab.classList.add('hide');
+            tab.classList.remove('show','fade');
+        });
 
-// =========== work with Date() ============ //
+        //while we hide - remove active class from it
+        tabs.forEach(tab => {
+            tab.classList.remove('tabheader__item_active');
+        });
+    }
+    // show the tabs
+    function showTabContent(i = 0) {
+        tabsContent[i].classList.add('show', 'fade');
+        tabsContent[i].classList.remove('hide');
+        tabs[i].classList.add('tabheader__item_active');
+    }
+    
+    hideTabContent();
+    showTabContent();
 
-let now = new Date();
+    tabsParent.addEventListener('click', (e) => {
+        const target = e.target;
+        
+        if(target && target.classList.contains('tabheader__item')) {
+            tabs.forEach((tab, i) => {
+                if(target == tab) {
+                    hideTabContent();
+                    showTabContent(i);
+                }
+            });
+        }
+    });
 
-// current date and time
-// console.log(now);
+    // === timer === //
 
-// now = new Date(2021, 5, 1, 20); 
-// console.log(now);
+    const deadline = "2021-10-10";
 
-// since 1970 all dates goes in milliseconds
-now = new Date(); 
-// console.log(now.getFullYear());
-// console.log(now.getMonth());
-// console.log(now.getDate());
-// console.log(now.getDay());
-// console.log(now.getHours());
-// console.log(now.getUTCHours());
+    function getTimeRemaning(endtime) {
+        const t = Date.parse(endtime) - Date.parse(new Date()),
+              days = Math.floor(t / (1000*60*60*24)),
+              hours = Math.floor((t / (1000*60*60)%24)),
+              minutes = Math.floor((t / 1000 / 60) % 60),
+              seconds = Math.floor((t / 1000) % 60);
 
-// console.log(now.getTime());
-// console.log(now.getTimezoneOffset());
+        return {
+            'total': t,
+            'days': days,
+            'hours': hours,
+            'minutes': minutes,
+            'seconds': seconds
+        };
+    } 
 
-console.log(now.setHours(18));
+    function getZero(num) {
+        if(num >= 0 && num < 10) {
+            return `0${num}`;
+        } else {
+            return num;
+        }
+    }
 
-// benchmark
+    function setClock(selector, endtime) {
+        const timer = document.querySelector(selector),
+              days = timer.querySelector('#days'),
+              hours = timer.querySelector('#hours'),
+              minutes = timer.querySelector('#minutes'),
+              seconds = timer.querySelector('#seconds'),
+              timeInterval = setInterval(updateClock, 1000);
+        updateClock();
 
-let start = new Date();
+        // function to update each second
+        function updateClock() {
+            const t = getTimeRemaning(endtime);
 
-for (let i = 0; i < 100000; i++) {
-    let some = i ** 3;
-}
+            // output amount
+            
+            // days.innerHTML = t.days;
+            days.innerHTML = getZero(t.days);
+            // hours.innerHTML = t.hours;
+            hours.innerHTML = getZero(t.hours);
+            // minutes.innerHTML = t.minutes;
+            minutes.innerHTML = getZero(t.minutes);
+            // seconds.innerHTML = t.seconds;
+            seconds.innerHTML = getZero(t.seconds);
 
-let end = new Date();
-console.log(`loop done after ${end -start}ms`);
+
+            if(t.total <= 0) {
+                clearInterval(timeInterval);
+            }
+        }
+    } 
+    setClock('.timer', deadline);                                               
+});
+
